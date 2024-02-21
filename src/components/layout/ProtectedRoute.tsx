@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     const token = useAppSelector(useCurrentToken);
-    console.log(token);
+    // console.log(token);
     if (token === null || !token) {
         return <Navigate to="/login" replace={true} />;
     }
