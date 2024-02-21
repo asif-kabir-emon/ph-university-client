@@ -13,7 +13,7 @@ const PHInput = ({ type, name, label, placeholder }: TPHInputProps) => {
         <div style={{ marginBottom: '10px' }}>
             <Controller
                 name={name}
-                render={({ field }) => (
+                render={({ field, fieldState: { error } }) => (
                     <Form.Item label={label}>
                         <Input
                             {...field}
@@ -21,6 +21,11 @@ const PHInput = ({ type, name, label, placeholder }: TPHInputProps) => {
                             id={name}
                             placeholder={placeholder}
                         />
+                        {error && (
+                            <small style={{ color: 'red' }}>
+                                {error.message}
+                            </small>
+                        )}
                     </Form.Item>
                 )}
             />

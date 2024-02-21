@@ -47,11 +47,6 @@ const AcademicSemester = () => {
             width: '30%',
         },
         {
-            title: 'Year',
-            key: 'year',
-            dataIndex: 'year',
-        },
-        {
             title: 'Start Month',
             key: 'startMonth',
             dataIndex: 'startMonth',
@@ -60,6 +55,11 @@ const AcademicSemester = () => {
             title: 'End Month',
             key: 'endMonth',
             dataIndex: 'endMonth',
+        },
+        {
+            title: 'Year',
+            key: 'year',
+            dataIndex: 'year',
         },
         {
             title: 'Action',
@@ -100,6 +100,7 @@ const AcademicSemester = () => {
                 columns={columns}
                 dataSource={tableData}
                 onChange={onChange}
+                scroll={{ x: 768 }}
             />
         </div>
     );
