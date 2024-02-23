@@ -6,9 +6,16 @@ type TPHInputProps = {
     name: string;
     label: string;
     placeholder?: string;
+    disabled?: boolean;
 };
 
-const PHInput = ({ type, name, label, placeholder }: TPHInputProps) => {
+const PHInput = ({
+    type,
+    name,
+    label,
+    placeholder,
+    disabled,
+}: TPHInputProps) => {
     return (
         <div style={{ marginBottom: '10px' }}>
             <Controller
@@ -20,6 +27,7 @@ const PHInput = ({ type, name, label, placeholder }: TPHInputProps) => {
                             type={type}
                             id={name}
                             placeholder={placeholder}
+                            disabled={disabled}
                         />
                         {error && (
                             <small style={{ color: 'red' }}>

@@ -1,3 +1,4 @@
+import { TCourse, TResponseRedux, TSemesterRegistration } from '../../../types';
 import { baseApi } from '../../api/baseApi';
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -9,38 +10,78 @@ const userManagementApi = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
-        // getAllStudents: builder.query({
-        //     query: (args) => {
-        //         const params = new URLSearchParams();
+        getAllRegisteredSemester: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
 
-        //         if (args) {
-        //             args.forEach((item: { name: string; value: string }) => {
-        //                 params.append(item.name, String(item.value));
-        //             });
-        //         }
+                if (args) {
+                    args.forEach((item: { name: string; value: string }) => {
+                        params.append(item.name, String(item.value));
+                    });
+                }
 
-        //         return {
-        //             url: '/students',
-        //             method: 'GET',
-        //             params: params,
-        //         };
-        //     },
-        //     transformResponse: (response: TResponseRedux<TStudent[]>) => {
-        //         return {
-        //             data: response.data,
-        //             meta: response.meta,
-        //         };
-        //     },
-        // }),
-        // getStudent: builder.query({
-        //     query: (params) => {
-        //         return {
-        //             url: `/students/${params.studentId}`,
-        //             method: 'GET',
-        //         };
-        //     },
-        // }),
+                return {
+                    url: '/semester-registrations',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            providesTags: ['Semester'],
+            transformResponse: (
+                response: TResponseRedux<TSemesterRegistration[]>
+            ) => {
+                console.log('response', response);
+                return {
+                    data: response.data,
+                    meta: response.meta,
+                };
+            },
+        }),
+        updateRegisteredSemester: builder.mutation({
+            query: (args) => ({
+                url: `/semester-registrations/${args.id}`,
+                method: 'PATCH',
+                body: args.data,
+            }),
+            invalidatesTags: ['Semester'],
+        }),
+        addCourse: builder.mutation({
+            query: (data) => ({
+                url: '/courses/create-course',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        getAllCourses: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+
+                if (args) {
+                    args.forEach((item: { name: string; value: string }) => {
+                        params.append(item.name, String(item.value));
+                    });
+                }
+
+                return {
+                    url: '/courses',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            transformResponse: (response: TResponseRedux<TCourse[]>) => {
+                return {
+                    data: response.data,
+                    meta: response.meta,
+                };
+            },
+        }),
     }),
 });
 
-export const { useAddRegisterSemesterMutation } = userManagementApi;
+export const {
+    useAddRegisterSemesterMutation,
+    useGetAllRegisteredSemesterQuery,
+    useUpdateRegisteredSemesterMutation,
+    useAddCourseMutation,
+    useGetAllCoursesQuery,
+} = userManagementApi;
