@@ -12,8 +12,10 @@ export type TRoute = {
     element: ReactNode;
 };
 
-export type TSideBarItem = {
-    key: string;
-    label: import('react').ReactNode;
-    children?: TSideBarItem[];
-};
+export type TSideBarItem =
+    | {
+          key: string;
+          label: import('react').ReactNode;
+          children?: TSideBarItem[];
+      }
+    | undefined;
