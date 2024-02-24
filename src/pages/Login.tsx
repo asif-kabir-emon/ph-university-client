@@ -32,8 +32,13 @@ const Login = () => {
                 })
             );
             toast.success('Logged in', { id: toastId, duration: 2000 });
-            if (isError === false) {
-                navigate(`/${user.role}/dashboard`);
+
+            if (res.data.needPasswordChange === true) {
+                navigate(`/change-password`);
+            } else {
+                if (isError === false) {
+                    navigate(`/${user.role}/dashboard`);
+                }
             }
         } catch (error: any) {
             toast.error(error.data.message, { id: toastId, duration: 2000 });
@@ -45,9 +50,7 @@ const Login = () => {
             <PHForm onSubmit={onSubmit}>
                 <PHInput type="text" name="id" label="Id" />
                 <PHInput type="password" name="password" label="Password" />
-                <Button type="primary" htmlType="submit">
-                    Login
-                </Button>
+                <Button htmlType="submit">Login</Button>
             </PHForm>
         </Row>
     );

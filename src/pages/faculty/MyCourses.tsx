@@ -1,4 +1,4 @@
-const OfferedCourses = () => {
+const MyCourses = () => {
     return (
         <div>
             <h1>This is OfferedCourse Component</h1>
@@ -6,4 +6,4 @@ const OfferedCourses = () => {
     );
 };
 
-export default OfferedCourses;
+export default MyCourses;
